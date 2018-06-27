@@ -1,0 +1,55 @@
+body{
+    background-image: url("../6.jpg");
+}
+#title,#subtitle ,#description{
+
+    font-family: "Atma";
+}
+#title {
+    font-size:290%;
+    text-align:center;
+    color:#F70505;
+    font-weight: bold;
+
+}
+#subtitle{
+    color: #F70505;
+    text-align: center;
+    font-size: 130%;
+}
+#description{
+    opacity: 0.95;
+    background: white;
+    color: rgb(20, 139, 177);
+    display:block;
+    font-size:20px;
+    border:1px solid red;
+    letter-spacing: 3px;
+    padding: 6px 12px;
+    min-height:100px;
+    min-width:30%;
+    margin: 10px;
+    border-radius: 25px;
+}
+.button-container a:link , .button-container a:visited {
+    position:relative;
+    top:90%;
+    left:46%;
+    padding-top: 8px;
+    padding-left: 1px;
+    font-size:16px;
+    display: block;
+    cursor: pointer;
+    width: 90px;
+    height:30px;
+    border: 1px solid red;
+    border-radius: 25px;
+    text-decoration: none;
+    color:rgb(20, 139, 177);
+    text-align: center;
+    margin: 10px;
+}
+
+@viewport {
+    width: auto;
+}
