@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Chat Annonmously</title>
+    <link rel="stylesheet" href=" CSS/font-awesome.min.css" />
+    <link rel="stylesheet" href="../CSS/chat.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Marck+Script"
+      rel="stylesheet"
+    />
+    <link rel="script" href="server.js" />
+    <script src="http://127.0.0.1:9000/socket.io/socket.io.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.js"
+      integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      var socket = io.connect("localhost:9000");
+
+      function send() {
+        var name = document.getElementById("chat-name").value;
+
+        var msg = document.getElementById("chat-msg").value;
+
+        socket.emit("input", { name: name, message: msg });
+      }
+
+      $(document).ready(function () {
+        var statusSpan = document.getElementById("status");
+
+        socket.on("disconnect", function () {
+          statusSpan.innerText = "Disconnected";
+        });
+
+        socket.on("output", function (data) {
+          var chatLog = document.getElementById("chat-messeges");
+
+          data.forEach(function (Item) {
+            console.log(Item);
+
+            chatLog.innerText =
+              chatLog.innerText + Item.name + ": " + Item.message + "\n\n";
+          });
+
+          $("#chat-messeges").animate(
+            { scrollTop: $("#chat-messeges").prop("scrollHeight") },
+            1000
+          );
+        });
+
+        socket.on("status", function (data) {
+          statusSpan.innerText = data;
+
+          setTimeout(function () {
+            statusSpan.innerText = "Connected";
+          }, 3000);
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+    </div>
+    <div class="chat1" align="center">
+      <div class="chat" align="centre">
+        <input
+          type="text"
+          id="chat-name"
+          placeholder="Enter Your Name Here"
+          value=""
+        />
+
+        <div id="chat-messeges" align="left"></div>
+
+        <textarea
+          placeholder="Enter Your Message Here............"
+          id="chat-msg"
+        ></textarea>
+
+        <button class="button button1" onclick="send()">Send</button>
+
+        <div id="chat-status">Status:<span id="status">idle</span></div>
+      </div>
+    </div>
+  </body>
+</html>
